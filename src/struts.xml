@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+	<constant name="struts.custom.i18n.resources" value="message"/>
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<constant name="struts.ui.theme" value="simple"/>
+    <package name="renthouse" extends="struts-default">   
+    	<default-action-ref name="defaultAction" />
+		<action name="defaultAction" class="cn.houserent.action.Default">
+			<result name="fail">/page/fail.jsp</result>
+		</action>
+       
+        <action name="manage" class="manage" method="list">
+        	<result name="list">/page/manage.jsp</result>
+        	<result name="ajaxlist">/page/result.jsp</result>
+        </action>
+         <!-- 使用动态方法方法实现用户登录（login）、注册 (register)
+         <action name="user" class="cn.houserent.action.UserAction">
+        	<result name="register_success">/page/success.jsp</result>
+        	<result name="register_input">/page/register.jsp</result>
+        	<result name="login_success" type="redirectAction">manage</result>
+        	<result name="login_input">/page/login_struts2.jsp</result>        	
+        </action>  -->
+        <!-- class属性的值不再是Action类的全限定名,而是Spring配置文件中相应的Action
+    Bean的名称
+         -->
+         <action name="user" class="userAction">
+        	<result name="register_success">/page/success.jsp</result>
+        	<result name="register_input">/page/register.jsp</result>
+        	<result name="login_success" type="redirectAction">manage</result>
+        	<result name="login_input">/page/login_struts2.jsp</result>        	
+        </action> 
+        <action name="add" class="cn.houserent.action.Add">
+        	<result name="success">/page/success2.jsp</result>
+        	<result name="input">/page/add.jsp</result>
+        </action>
+        <action name="index" class="cn.houserent.action.HouseAction" method="index">
+        	<result name="success">/page/house_list.jsp</result>
+        	<result name="error">/page/fail.jsp</result>
+        </action>
+        <action name="search" class="cn.houserent.action.HouseAction" method="lookup">
+        	<result name="success">/page/search_list.jsp</result>
+        	<result name="error">/page/fail.jsp</result>
+        </action>  
+        <action name="show" class="cn.houserent.action.DetailAction">
+        	<result name="success">/page/show.jsp</result>
+		</action>	                                   
+    </package>
+</struts>
